@@ -58,7 +58,7 @@ public class BlogService {
     }
 
     @Transactional
-    public PostEditDto editPost(Long id, String subject, String contents, String pw) {
+    public PostEditDto editPost(Long id, String pw, String subject, String contents)  {
 
         Blog blog = blogRepository.findById(id).orElseThrow(
                 () -> new IllegalArgumentException("아이디가 존재하지 않습니다.")

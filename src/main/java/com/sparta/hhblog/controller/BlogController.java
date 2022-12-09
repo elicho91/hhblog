@@ -19,7 +19,7 @@ public class BlogController {
     private final BlogService blogService;
 
 
-    @GetMapping("/api/ShowAllPost")
+    @GetMapping("/api/showAllPost")
     public List<PostListDto> getPost(){
         return blogService.getPost();
     }
@@ -36,7 +36,7 @@ public class BlogController {
     }
 
     @PutMapping("/api/editPost/{id}/{pw}/{subject}/{contents}")
-    public PostEditDto editPost(@PathVariable Long id, , @PathVariable String pw, @PathVariable String subject, @PathVariable String contents){
+    public PostEditDto editPost(@PathVariable Long id, @PathVariable String pw, @PathVariable String subject, @PathVariable String contents){
 
         return blogService.editPost(id, pw, subject, contents);
     }

@@ -10,6 +10,7 @@ import java.util.List;
 public class PostListDto {
 
     private String username;
+    private String subject;
     private String contents;
     private LocalDateTime createdAt;
 
@@ -17,6 +18,7 @@ public class PostListDto {
 
     public PostListDto(Blog blog) {
         this.username = blog.getUsername();
+        this.subject = blog.getSubject();
         this.contents = blog.getContents();
         this.createdAt = blog.getCreatedAt();
     }
