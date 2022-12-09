@@ -20,8 +20,37 @@ public class BlogService {
     private final BlogRepository blogRepository;
 
 
+//    @Transactional
+//    public Blog createPost(PostCreateDto postCreateDto) {
+//        Blog blog = new Blog(postCreateDto);
+//        blogRepository.save(blog);
+//
+//        return blog;
+//    }
+
     @Transactional
-    public List<PostListDto> getPost() {
+    public PostCreateDto createPost(String username, String pw, String subject, String contents) {
+        Blog blog = new Blog(username, pw, subject, contents);
+        blogRepository.save(blog);
+
+        PostCreateDto postCreateDto = new PostCreateDto(blog);
+        return postCreateDto;
+    }
+
+    @Transactional
+    public PostShowDto showPost(Long id) {
+
+        Blog blog = blogRepository.findById(id).orElseThrow(
+                () -> new IllegalArgumentException("아이디가 존재하지 않습니다.")
+        );
+
+        PostShowDto postShowDto = new PostShowDto(blog);
+
+        return postShowDto;
+    }
+
+    @Transactional
+    public List<PostListDto> getPosts() {
 
         List<Blog> blog = blogRepository.findAll();
         List<PostListDto> allPosts = new ArrayList<>();
@@ -36,46 +65,19 @@ public class BlogService {
     }
 
     @Transactional
-    public PostCreateDto createPost(String username, String pw, String subject, String contents) {
-        Blog blog = new Blog(username, pw, subject, contents);
-        blogRepository.save(blog);
-
-        PostCreateDto postCreateDto = new PostCreateDto(blog);
-        return postCreateDto;
-    }
-
-    @Transactional
-    public PostShowDto showPost(Long id) {
-
+    public PostEditDto editPost(Long id, String pw, String subject, String contents) {
 
         Blog blog = blogRepository.findById(id).orElseThrow(
                 () -> new IllegalArgumentException("아이디가 존재하지 않습니다.")
         );
-
-        PostShowDto postShowDto = new PostShowDto(blog);
-
-        return postShowDto;
-    }
-
-    @Transactional
-    public PostEditDto editPost(Long id, String pw, String subject, String contents)  {
-
-        Blog blog = blogRepository.findById(id).orElseThrow(
-                () -> new IllegalArgumentException("아이디가 존재하지 않습니다.")
-        );
-
 
         if (blog.getPw().equals(pw)) {
-
             blog.edit(subject, contents);
             PostEditDto postEditDto = new PostEditDto(blog);
             return postEditDto;
         } else {
             throw new IllegalArgumentException("비밀번호가 일치하지 않습니다");
-
         }
-
-
     }
 
     @Transactional
@@ -85,7 +87,6 @@ public class BlogService {
         );
 
         if (blog.getPw().equals(pw)) {
-
             blogRepository.deleteById(id);
             return "정상적으로 삭제되었습니다.";
         }

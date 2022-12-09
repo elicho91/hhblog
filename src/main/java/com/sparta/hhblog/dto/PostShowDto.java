@@ -7,16 +7,16 @@ import java.time.LocalDateTime;
 @Getter
 public class PostShowDto {
 
-    private String subject;
     private String username;
-    private LocalDateTime createdAt;
+    private String subject;
     private String contents;
+    private LocalDateTime createdAt;
 
 
     public PostShowDto(Blog blog) {
-        this.subject = blog.getSubject();
         this.username = blog.getUsername();
         this.createdAt = blog.getCreatedAt();
+        this.subject = blog.getSubject();
         this.contents = blog.getContents();
     }
 

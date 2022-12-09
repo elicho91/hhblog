@@ -1,5 +1,6 @@
 package com.sparta.hhblog.entity;
 
+import com.sparta.hhblog.dto.PostCreateDto;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -32,6 +33,13 @@ public class Blog extends Timestamped{
         this.subject = subject;
         this.contents = contents;
     }
+
+//    public Blog(PostCreateDto postCreateDto) {
+//        this.username = username;
+//        this.pw = pw;
+//        this.subject = subject;
+//        this.contents = contents;
+//    }
 
     public void edit(String subject, String contents) {
 
